@@ -33,16 +33,25 @@ The user can change the signal generated between line 95 and 103
 AlternateKFtutorial.py :
 
 Alternative to Kalman filter using a method instead of a function.
+Result are the same, the code is just more compact.
 The Initialization of the object KFparAlt is the same as the object KFpar
+
 name  = KFparAlt(cLin, cMeas)
-Initialization with the firs measure is also the same:
+
+Initialization with the first measure is also the same:
+
 name.X[0] = measure@T=0
 
 Changes regard the update of the estimate.
-NO NEED TO UPDATE F ANYMORE
+NO NEED TO UPDATE F BEFORE THE OBJECT ANYMORE
+
 Just call the method:
+
 name.EstimateState(Newmeasure, deltaT) 
+
 and it will update the object
 
 Results are accessible the same way:
+
 Current : name.X[0]; slope: name.X[1]; Stdev name.Sig[0]
+
