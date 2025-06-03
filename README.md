@@ -28,4 +28,21 @@ Settings for KFtutorialAtan.py
 Kalman filter settings work the same way than KFtutorial.py
 The user can change the signal generated between line 95 and 103
 
+##############################################################################################################
 
+AlternateKFtutorial.py :
+
+Alternative to Kalman filter using a method instead of a function.
+The Initialization of the object KFparAlt is the same as the object KFpar
+name  = KFparAlt(cLin, cMeas)
+Initialization with the firs measure is also the same:
+name.X[0] = measure@T=0
+
+Changes regard the update of the estimate.
+NO NEED TO UPDATE F ANYMORE
+Just call the method:
+name.EstimateState(Newmeasure, deltaT) 
+and it will update the object
+
+Results are accessible the same way:
+Current : name.X[0]; slope: name.X[1]; Stdev name.Sig[0]
