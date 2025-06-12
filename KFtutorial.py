@@ -123,26 +123,31 @@ for k in range(len(time)-1):
 
     # storing the different state estimates
     esty[k+1] = KF.X[0] # Estimate of the tracked variable
-    estdy[k+1] = np.abs(KF.X[1]) # Estimate of the slope of the tracked variable
+    estdy[k+1] = KF.X[1] # Estimate of the slope of the tracked variable
     ests[k+1] = KF.Sig[0] # Estimate of the standard deviation of the tracked variable
 
 
 
-plt.figure()
-plt.subplot(311)
-plt.title('Signal '+file+'; cLin: '+str(cLin)+'; cMeas: '+str(cMeas))
-plt.plot(time[1::], mes[1::])
-#plt.plot(time, pos)
-plt.plot(time[1::], esty[1::])
-plt.legend(['measured', 'filtered'])
-plt.ylabel('x')
-plt.subplot(312)
-plt.plot(time[1::], ests[1::])
-plt.ylabel(r'$\hat{\sigma}_x$')
-plt.subplot(313)
-plt.plot(time[1::], estdy[1::])
-plt.plot(time[1::], thresh * np.ones(len(time[1::])), '--')
-plt.ylabel(r'$|\frac{dx}{dt}|$')
-plt.xlabel('time')
+fig, axs = plt.subplots(3, 1, sharex=True)
+
+fig.subplots_adjust(hspace=0)
+
+
+axs[0].set_title('Signal '+file+'; cLin: '+str(cLin)+'; cMeas: '+str(cMeas), fontsize=24)
+axs[0].plot(time[1::], mes[1::], 'k')
+axs[0].plot(time[1::], esty[1::], 'b')
+axs[0].legend(['measured', 'filtered'])
+axs[0].set_ylabel('x',fontsize=20 )
+
+
+axs[1].plot(time[1::], ests[1::], 'b')
+axs[1].set_ylabel(r'$\hat{\sigma}_x$',fontsize=20)
+
+
+axs[2].plot(time[1::], estdy[1::], 'b')
+axs[2].plot(time[1::], thresh * np.ones(len(time[1::])), 'k--')
+axs[2].plot(time[1::], -thresh * np.ones(len(time[1::])), 'k--')
+axs[2].set_ylabel(r'$\frac{dx}{dt}$',fontsize=20)
+axs[2].set_xlabel('time',fontsize=20)
 
 plt.show()
